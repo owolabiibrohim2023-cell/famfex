@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. Careers & Job Application System (Careers Page)
   const jobForm = document.getElementById('jobApplicationForm');
   if (jobForm) {
+    const applicationEndpoint = 'https://formsubmit.co/ajax/famfexconsult2@gmail.com';
     // If URL has ?job=xxx, pre-select it
     const urlParams = new URLSearchParams(window.location.search);
     const selectedJob = urlParams.get('job');
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    jobForm.addEventListener('submit', (e) => {
+    jobForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const fullName = document.getElementById('appFullName').value;
@@ -130,8 +131,54 @@ document.addEventListener('DOMContentLoaded', () => {
       const fileName = resumeFile ? resumeFile.name : 'Attached via chat';
       const cover = document.getElementById('appCover').value;
 
+      if (resumeFile && resumeFile.size > 10 * 1024 * 1024) {
+        const status = document.getElementById('jobFormStatus');
+        if (status) {
+          status.className = 'form-status error';
+          status.textContent = 'Your CV is larger than 10MB. Please choose a smaller file and try again.';
+        }
+        return;
+      }
+
       // Generate Reference Code
       const refCode = 'FAM-' + Math.floor(100000 + Math.random() * 900000);
+
+      const referenceInput = document.getElementById('appReference');
+      if (referenceInput) referenceInput.value = refCode;
+      const replyToInput = document.getElementById('appReplyTo');
+      if (replyToInput) replyToInput.value = email;
+
+      const submitButton = document.getElementById('jobSubmitButton');
+      const status = document.getElementById('jobFormStatus');
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending Application...';
+      }
+      if (status) {
+        status.className = 'form-status';
+        status.textContent = 'Sending your application and CV to the Famfex recruitment desk...';
+      }
+
+      try {
+        const response = await fetch(applicationEndpoint, {
+          method: 'POST',
+          body: new FormData(jobForm),
+          headers: { Accept: 'application/json' }
+        });
+
+        if (!response.ok) throw new Error('Application email could not be sent.');
+      } catch (error) {
+        console.error('Application email error:', error);
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Job Application System';
+        }
+        if (status) {
+          status.className = 'form-status error';
+          status.textContent = 'We could not send your application right now. Please try again or contact HR on WhatsApp.';
+        }
+        return;
+      }
 
       // Save to localStorage so applicant can see their submitted status
       const applicationData = {
@@ -159,6 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
         successNotice.scrollIntoView({ behavior: 'smooth' });
       }
 
+      if (status) {
+        status.className = 'form-status success';
+        status.textContent = 'Application sent successfully to famfexconsult2@gmail.com.';
+      }
+
       // WhatsApp Quick Sync Link
       const waBtn = document.getElementById('sendAppWhatsApp');
       if (waBtn) {
@@ -167,6 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       jobForm.reset();
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Job Application System';
+      }
     });
 
     renderApplicationHistory();

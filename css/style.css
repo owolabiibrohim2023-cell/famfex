@@ -723,11 +723,45 @@ button, input, select, textarea {
 
 .portfolio-img {
   width: 100%;
-  height: 220px;
+  height: 400px;
   background-size: cover;
   background-position: center;
   position: relative;
   background-color: var(--secondary-light);
+  /* isolation: isolate; */
+  /* overflow: hidden; */
+  transition: transform 0.35s ease, filter 0.35s ease;
+  padding-top: -40px;
+}
+
+/* Real local JPG photography matched to each project category. */
+.portfolio-card:nth-child(1) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/villa.jpg') !important;
+}
+
+.portfolio-card:nth-child(2) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/road.jpg') !important;
+}
+
+.portfolio-card:nth-child(3) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/warehouse.jpg') !important;
+}
+
+.portfolio-card:nth-child(4) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/apartments.jpg') !important;
+}
+
+.portfolio-card:nth-child(5) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/retaining-wall.jpg') !important;
+}
+
+.portfolio-card:nth-child(6) .portfolio-img {
+  background-image: linear-gradient(rgba(15,23,42,0.08), rgba(15,23,42,0.58)), url('../images/plaza.jpg') !important;
+}
+
+.portfolio-card:hover .portfolio-img {
+  transform: scale(1.025);
+  filter: saturate(1.08) contrast(1.03);
 }
 
 .portfolio-tag {
@@ -968,6 +1002,21 @@ button, input, select, textarea {
   box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
 }
 
+.form-control[type="file"] {
+  padding: 0.55rem;
+}
+
+.form-control[type="file"]::file-selector-button {
+  border: 0;
+  border-radius: 5px;
+  background: var(--primary-light);
+  color: #92400e;
+  padding: 0.45rem 0.7rem;
+  margin-right: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1037,6 +1086,30 @@ button, input, select, textarea {
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
   animation: fadeIn 0.3s ease;
+}
+
+.form-status {
+  min-height: 1.4rem;
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.form-status.success {
+  color: #047857;
+  font-weight: 600;
+}
+
+.form-status.error {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
 }
 
 @keyframes fadeIn {
@@ -1130,11 +1203,11 @@ button, input, select, textarea {
 }
 
 .footer-bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  
+   text-align: center;
   flex-wrap: wrap;
-  gap: 1rem;
+ 
 }
 
 /* FLOATING WHATSAPP CTA */
@@ -1243,6 +1316,57 @@ button, input, select, textarea {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .top-bar-content {
+    justify-content: center;
+    text-align: center;
+  }
+  .top-bar-left, .top-bar-right {
+    justify-content: center;
+    gap: 0.6rem 1rem;
+  }
+  .top-bar-left {
+    width: 100%;
+  }
+  .top-bar-left .top-bar-item span {
+    white-space: normal;
+  }
+  .nav-container {
+    height: 68px;
+  }
+  .nav-menu {
+    top: 68px;
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+    gap: 0.35rem;
+    padding: 1rem;
+  }
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem;
+  }
+  .nav-link.active::after {
+    bottom: 2px;
+    left: 25%;
+    width: 50%;
+  }
+  .section {
+    padding: 3.5rem 0;
+  }
+  .page-hero {
+    padding: 3.25rem 0 2.75rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+    line-height: 1.2;
+  }
+  .page-hero p {
+    font-size: 1rem;
+  }
   .hero-title {
     font-size: 2.3rem;
   }
@@ -1300,5 +1424,77 @@ button, input, select, textarea {
   }
   .feature-check-list {
     grid-template-columns: 1fr;
+  }
+  .job-card {
+    padding: 1.25rem;
+  }
+  .job-header > div:last-child {
+    width: 100%;
+  }
+  .job-header .btn {
+    width: 100%;
+    white-space: normal;
+  }
+  .app-box {
+    padding: 1.25rem;
+  }
+  .app-box h2 {
+    font-size: 1.65rem !important;
+  }
+  .notice-success {
+    padding: 1.1rem;
+  }
+  .notice-success .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .float-whatsapp {
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  .modal-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    gap: 0.5rem;
+  }
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+  }
+  .logo-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .brand-name {
+    font-size: 1.15rem;
+  }
+  .brand-tagline {
+    font-size: 0.6rem;
+  }
+  .menu-toggle {
+    padding: 0.25rem;
+  }
+  .job-tags {
+    gap: 0.35rem;
+  }
+  .job-tag {
+    font-size: 0.72rem;
+  }
+  .float-whatsapp span {
+    display: none;
+  }
+  .float-whatsapp {
+    width: 46px;
+    height: 46px;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0;
   }
 }

@@ -241,7 +241,7 @@
           <span class="section-tag">Online Portal</span>
           <h2 style="font-size: 2rem; color: var(--secondary-dark); margin-bottom: 0.5rem;">Job Application System</h2>
           <p style="color: var(--text-muted); font-size: 0.95rem;">
-            Submit your credentials directly into our HR database. Once submitted, your unique Candidate Reference ID is issued immediately, and you can forward your profile via WhatsApp for accelerated review.
+            Submit your credentials directly to our recruitment desk. Your application and CV will be emailed securely to our HR team, and a unique Candidate Reference ID will be issued immediately.
           </p>
         </div>
 
@@ -249,7 +249,7 @@
         <div id="appSuccessNotice" class="notice-success">
           <h4 style="font-size: 1.25rem; margin-bottom: 0.4rem; color: #065f46;">🎉 Application Successfully Registered!</h4>
           <p style="margin-bottom: 0.75rem;">
-            Your candidate file has been logged in our HR portal. Your official tracking code is:
+            Your application has been emailed to the Famfex recruitment desk. Your official tracking code is:
             <strong id="appRefDisplay" style="font-size: 1.2rem; background: #d1fae5; padding: 2px 8px; border-radius: 4px; color: #047857;">FAM-000000</strong>.
           </p>
           <p style="font-size: 0.9rem; margin-bottom: 1.25rem;">
@@ -260,33 +260,38 @@
           </a>
         </div>
 
-        <form id="jobApplicationForm">
+        <form id="jobApplicationForm" enctype="multipart/form-data">
+          <input type="hidden" name="_subject" value="New Famfex Job Application">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" id="appReplyTo" name="_replyto" value="">
+          <input type="hidden" id="appReference" name="Candidate Reference ID" value="">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Full Name *</label>
-              <input type="text" id="appFullName" class="form-control" placeholder="e.g. Engr. Obinna Nwosu" required>
+              <label class="form-label" for="appFullName">Full Name *</label>
+              <input type="text" id="appFullName" name="Full Name" class="form-control" placeholder="e.g. Engr. Obinna Nwosu" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Email Address *</label>
-              <input type="email" id="appEmail" class="form-control" placeholder="e.g. obinna@example.com" required>
+              <label class="form-label" for="appEmail">Email Address *</label>
+              <input type="email" id="appEmail" name="Applicant Email" class="form-control" placeholder="e.g. obinna@example.com" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Phone / WhatsApp Number *</label>
-              <input type="tel" id="appPhone" class="form-control" placeholder="e.g. 0803 000 0000" required>
+              <label class="form-label" for="appPhone">Phone / WhatsApp Number *</label>
+              <input type="tel" id="appPhone" name="Phone / WhatsApp" class="form-control" placeholder="e.g. 0803 000 0000" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Current Residential Location *</label>
-              <input type="text" id="appLocation" class="form-control" placeholder="e.g. Owerri, Mbieri, Orlu, Aba" required>
+              <label class="form-label" for="appLocation">Current Residential Location *</label>
+              <input type="text" id="appLocation" name="Current Location" class="form-control" placeholder="e.g. Owerri, Mbieri, Orlu, Aba" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Position Applying For *</label>
-              <select id="appRole" class="form-control" required>
+              <label class="form-label" for="appRole">Position Applying For *</label>
+              <select id="appRole" name="Position Applying For" class="form-control" required>
                 <option value="">-- Choose Position --</option>
                 <option value="Site Civil & Structural Engineer">Site Civil & Structural Engineer</option>
                 <option value="Senior Building & Construction Foreman">Senior Building & Construction Foreman</option>
@@ -298,8 +303,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Years of Practical Experience *</label>
-              <select id="appExperience" class="form-control" required>
+              <label class="form-label" for="appExperience">Years of Practical Experience *</label>
+              <select id="appExperience" name="Experience" class="form-control" required>
                 <option value="Entry Level / Graduate Trainee (0-1 yrs)">Entry Level / Graduate Trainee (0-1 yrs)</option>
                 <option value="Junior Level (1-3 yrs)">Junior Level (1-3 yrs)</option>
                 <option value="Mid-Level (3-6 yrs)">Mid-Level (3-6 yrs)</option>
@@ -309,25 +314,26 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Attach Resume / CV (PDF, DOCX, or Image)</label>
-            <input type="file" id="appResume" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png">
+            <label class="form-label" for="appResume">Attach Resume / CV (PDF, DOCX, or Image)</label>
+            <input type="file" id="appResume" name="Resume / CV" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
             <small style="color:var(--text-muted); font-size:0.8rem; display:block; margin-top:4px;">
               Max file size 10MB. If you don't have a soft copy ready, you can still submit and bring a hard copy to our Spibat office.
             </small>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Cover Statement & Notable Projects Executed</label>
-            <textarea id="appCover" class="form-control" rows="4" placeholder="Mention key projects you have handled, machinery you can operate, or why you are an ideal fit for Famfex Construction Company..."></textarea>
+            <label class="form-label" for="appCover">Cover Statement & Notable Projects Executed</label>
+            <textarea id="appCover" name="Cover Statement" class="form-control" rows="4" placeholder="Mention key projects you have handled, machinery you can operate, or why you are an ideal fit for Famfex Construction Company..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          <button type="submit" id="jobSubmitButton" class="btn btn-primary btn-lg" style="width: 100%;">
             Submit Job Application System
           </button>
+          <p id="jobFormStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
 
         <!-- Stored Application History (Local Device) -->
-        <div style="margin-top: 3rem; pt: 2rem; border-top: 1px solid var(--border);">
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
           <h4 style="font-size: 1.1rem; color: var(--secondary-dark); margin-bottom: 0.75rem;">Your Submitted Applications (This Browser)</h4>
           <div id="applicationHistoryList">
             <!-- Rendered dynamically by main.js -->
@@ -404,7 +410,7 @@
     <div class="footer-bottom">
       <div class="container footer-bottom-content">
         <p>&copy; 2026 Famfex Construction Company. All Rights Reserved.</p>
-        <p>Built with High-Performance HTML, CSS & JavaScript.</p>
+        
       </div>
     </div>
   </footer>
